@@ -24,25 +24,25 @@ public class MainActivity extends AppCompatActivity {
      This method is called when the order button is clicked.
      */
     public void submitOrder(View view){
-        display(quantity);
+        displayQuantity(quantity);
         displayPrice(quantity * 5);
 
     }
     public void increment(View view){
 
         quantity ++;
-        display(quantity);
+        displayQuantity(quantity);
     }
     public void decrement(View view){
         quantity --;
         if (quantity <=0)
         {
-            display(0);
+            displayQuantity(0);
             quantity = 0;
         }
         else
         {
-            display(quantity);
+            displayQuantity(quantity);
         }
         /**display(quantity);*/
     }
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
      This method displays the given quantity value on the screen.
      */
-    private void display(int nummber){
+    private void displayQuantity(int nummber){
         TextView quantityTextView = (TextView)findViewById(R.id.quantity_text_view);
         quantityTextView.setText(""+nummber);
     }
