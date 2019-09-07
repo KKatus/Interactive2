@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         int price = calculatePrice();
 
-        String priceMessage = "Total: $ " + price;
-        priceMessage = priceMessage + "\nThank you!";
+        String priceMessage = createOrderSummary(price);
         displayMessage(priceMessage);
         //calculatePrice(quantity, price2);
 
@@ -61,13 +60,31 @@ public class MainActivity extends AppCompatActivity {
      */
     private int calculatePrice() {
         int price = quantity * 5;
-        return 700;
+        return price;
+    }
+
+
+    /**
+     * Create summary of the order.
+     *
+     * @param price of order
+     * @return text summary
+     */
+
+
+    private String createOrderSummary(int price) {
+        String priceMessage = "Name: Kaptain Kunal";
+        priceMessage += "\nQuantity: " + quantity;
+        priceMessage += "\nTotal: $ " + price;
+        priceMessage += "\nThank you!!";
+        return priceMessage;
+
     }
 
 
     private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
     }
 
 
@@ -79,10 +96,5 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText("" + numberOfCoffees);
     }
 
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
-        /**priceTextView.setText("CHF "+number);**/
-    }
 
 }
