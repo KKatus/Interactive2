@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -47,11 +48,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Storing the Name of Customer
-        EditText nameEditText = findViewById(R.id.name_EditText);
-        Editable username = nameEditText.getText(); // Storing it in a Editable variable
+        EditText nameField = findViewById(R.id.name_EditText);
+        String name = nameField.getText().toString(); // Storing it in a Editable variable
 
-
-        String priceMessage = createOrderSummary(price, addWhippedCream, addChocolate, username);
+        String priceMessage = createOrderSummary(price, addWhippedCream, addChocolate, name);
         displayMessage(priceMessage);
         //calculatePrice(quantity, price2);
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Create summary of the order.
      *
-     * @param username is a varaiable which contains the name of customer
+     * @param name is a varaiable which contains the name of customer
      * @param addWhippedCream is whether or not the user wants whipped cream topping
      * @param addChocolate is whether or not the user wants chocolate topping
      * @param price of the order
@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
      */
 
 
-    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate, Editable username) {
-        String priceMessage = "Name: " + username;
+    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate, String name) {
+        String priceMessage = "Name: " + name;
         priceMessage += "\nAdd whipped cream? " + addWhippedCream; // Added State of Boolean
         priceMessage += "\nAdd chocolate? " + addChocolate;        // Added Choclate State
         priceMessage += "\nQuantity: " + quantity;

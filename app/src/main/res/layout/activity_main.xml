@@ -17,13 +17,15 @@
             android:id="@+id/name_EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
             android:hint="Name"
-            android:inputType="textPersonName"/>
+            android:inputType="textCapWords"/>
+
 
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginBottom="16dp"
         android:text="Toppings"
         android:textAllCaps="true" />
@@ -35,6 +37,7 @@
         android:layout_height="wrap_content"
         android:text="Whipped Cream"
         android:paddingLeft="24dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginBottom="16dp"
         android:textSize="16sp" />
 
@@ -43,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="24dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginBottom="16dp"
             android:text="Chocolate"
             android:textSize="16sp" />
