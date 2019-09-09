@@ -3,8 +3,10 @@ package com.example.interactive2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -30,14 +32,26 @@ public class MainActivity extends AppCompatActivity {
 
         int price = calculatePrice();
 
+        // Figure out if the user wants whipped cream topping
         CheckBox whippedCreamCheckBox = findViewById(R.id.whipped_cream_CheckBox);
-        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
-        if (hasWhippedCream == true) {  //If checkbox is checked
+        boolean addWhippedCream = whippedCreamCheckBox.isChecked();
+        if (addWhippedCream == true) {  //If checkbox is checked
             price += 2;                 //Price rises + 2
         }
 
+        // Figure out if the user wants chocolate topping
+        CheckBox hasChocolateCheckBox = findViewById(R.id.chocolate_checkbox);
+        boolean addChocolate = hasChocolateCheckBox.isChecked();
+        if (addChocolate == true){      //If checkbox is checked
+            price += 2;                 //Price rises + 2
+        }
 
-        String priceMessage = createOrderSummary(price, hasWhippedCream);
+        //Storing the Name of Customer
+        EditText nameEditText = findViewById(R.id.name_EditText);
+        Editable username = nameEditText.getText(); // Storing it in a Editable variable
+
+
+        String priceMessage = createOrderSummary(price, addWhippedCream, addChocolate, username);
         displayMessage(priceMessage);
         //calculatePrice(quantity, price2);
 
@@ -75,14 +89,18 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Create summary of the order.
      *
-     * @param price of order
+     * @param username is a varaiable which contains the name of customer
+     * @param addWhippedCream is whether or not the user wants whipped cream topping
+     * @param addChocolate is whether or not the user wants chocolate topping
+     * @param price of the order
      * @return text summary
      */
 
 
-    private String createOrderSummary(int price, boolean hasWhippedCream) {
-        String priceMessage = "Name: Kaptain Kunal";
-        priceMessage += "\nAdd whipped cream? " + hasWhippedCream; // Added State of Boolean
+    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate, Editable username) {
+        String priceMessage = "Name: " + username;
+        priceMessage += "\nAdd whipped cream? " + addWhippedCream; // Added State of Boolean
+        priceMessage += "\nAdd chocolate? " + addChocolate;        // Added Choclate State
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal: $ " + price;
         priceMessage += "\nThank you!!";
