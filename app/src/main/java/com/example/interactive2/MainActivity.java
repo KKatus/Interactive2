@@ -17,7 +17,7 @@ import java.text.NumberFormat;
  */
 
 public class MainActivity extends AppCompatActivity {
-    int quantity = 0;
+    int quantity = 1;
     //int price;
 
     @Override
@@ -31,27 +31,22 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 
-        int price = calculatePrice();
 
         // Figure out if the user wants whipped cream topping
         CheckBox whippedCreamCheckBox = findViewById(R.id.whipped_cream_CheckBox);
-        boolean addWhippedCream = whippedCreamCheckBox.isChecked();
-        if (addWhippedCream == true) {  //If checkbox is checked
-            price += 2;                 //Price rises + 2
-        }
+        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
 
         // Figure out if the user wants chocolate topping
         CheckBox hasChocolateCheckBox = findViewById(R.id.chocolate_checkbox);
-        boolean addChocolate = hasChocolateCheckBox.isChecked();
-        if (addChocolate == true){      //If checkbox is checked
-            price += 2;                 //Price rises + 2
-        }
+        boolean hasChocolate = hasChocolateCheckBox.isChecked();
 
         //Storing the Name of Customer
         EditText nameField = findViewById(R.id.name_EditText);
         String name = nameField.getText().toString(); // Storing it in a Editable variable
 
-        String priceMessage = createOrderSummary(price, addWhippedCream, addChocolate, name);
+        int price = calculatePrice(hasChocolate, hasWhippedCream);
+
+        String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate, name);
         displayMessage(priceMessage);
         //calculatePrice(quantity, price2);
 
@@ -61,14 +56,23 @@ public class MainActivity extends AppCompatActivity {
     public void increment(View view) {
 
         quantity++;
+        if (quantity >= 100)
+        {
+            displayQuantity(100);
+            quantity = 100;
+        }
+        else
+        {
+            displayQuantity(quantity);
+        }
         displayQuantity(quantity);
     }
 
     public void decrement(View view) {
         quantity--;
-        if (quantity <= 0) {
-            displayQuantity(0);
-            quantity = 0;
+        if (quantity <= 1) {
+            displayQuantity(1);
+            quantity = 1;
         } else {
             displayQuantity(quantity);
         }
@@ -80,8 +84,19 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return total price
      */
-    private int calculatePrice() {
-        int price = quantity * 5;
+    private int calculatePrice(boolean hasChocolate, boolean hasWhippedCream) {
+
+        int basePrice = 5;
+
+        if(hasChocolate == true)
+        {
+            basePrice += 2;
+        }
+        if (hasWhippedCream == true)
+        {
+            basePrice += 1;
+        }
+        int price = quantity * basePrice;
         return price;
     }
 
@@ -90,17 +105,17 @@ public class MainActivity extends AppCompatActivity {
      * Create summary of the order.
      *
      * @param name is a varaiable which contains the name of customer
-     * @param addWhippedCream is whether or not the user wants whipped cream topping
-     * @param addChocolate is whether or not the user wants chocolate topping
+     * @param hasWhippedCream is whether or not the user wants whipped cream topping
+     * @param hasChocolate is whether or not the user wants chocolate topping
      * @param price of the order
      * @return text summary
      */
 
 
-    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate, String name) {
+    private String createOrderSummary(int price, boolean hasWhippedCream, boolean hasChocolate, String name) {
         String priceMessage = "Name: " + name;
-        priceMessage += "\nAdd whipped cream? " + addWhippedCream; // Added State of Boolean
-        priceMessage += "\nAdd chocolate? " + addChocolate;        // Added Choclate State
+        priceMessage += "\nAdd whipped cream? " + hasWhippedCream; // Added State of Boolean
+        priceMessage += "\nAdd chocolate? " + hasChocolate;        // Added Choclate State
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal: $ " + price;
         priceMessage += "\nThank you!!";
