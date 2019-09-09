@@ -2,6 +2,7 @@ package com.example.interactive2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -56,13 +58,17 @@ public class MainActivity extends AppCompatActivity {
     public void increment(View view) {
 
         quantity++;
-        if (quantity >= 100)
-        {
+        if (quantity > 100) {
             displayQuantity(100);
             quantity = 100;
-        }
-        else
-        {
+
+            Context context = getApplicationContext();          //Creating a toas to inform that limit is reached
+            CharSequence text = "Coffee limit is 100!!";        //Creating a toas to inform that limit is reached
+            int duration = Toast.LENGTH_SHORT;                  //Creating a toas to inform that limit is reached
+
+            Toast toast_minus = Toast.makeText(context, text, duration);
+            toast_minus.show();                                 //Display toast
+        } else {
             displayQuantity(quantity);
         }
         displayQuantity(quantity);
@@ -70,9 +76,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void decrement(View view) {
         quantity--;
-        if (quantity <= 1) {
+        if (quantity < 1) {
             displayQuantity(1);
             quantity = 1;
+
+            Context context = getApplicationContext();                  //Creating a toas to inform that limit is reached
+            CharSequence text = "You must order at least 1 coffe!";     //Creating a toas to inform that limit is reached
+            int duration = Toast.LENGTH_SHORT;                          //Creating a toas to inform that limit is reached
+
+            Toast toast_minus = Toast.makeText(context, text, duration);
+            toast_minus.show();                                         //Display Toast
+
+
         } else {
             displayQuantity(quantity);
         }
@@ -88,12 +103,10 @@ public class MainActivity extends AppCompatActivity {
 
         int basePrice = 5;
 
-        if(hasChocolate == true)
-        {
+        if (hasChocolate == true) {
             basePrice += 2;
         }
-        if (hasWhippedCream == true)
-        {
+        if (hasWhippedCream == true) {
             basePrice += 1;
         }
         int price = quantity * basePrice;
@@ -104,10 +117,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Create summary of the order.
      *
-     * @param name is a varaiable which contains the name of customer
+     * @param name            is a varaiable which contains the name of customer
      * @param hasWhippedCream is whether or not the user wants whipped cream topping
-     * @param hasChocolate is whether or not the user wants chocolate topping
-     * @param price of the order
+     * @param hasChocolate    is whether or not the user wants chocolate topping
+     * @param price           of the order
      * @return text summary
      */
 
